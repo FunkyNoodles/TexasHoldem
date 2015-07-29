@@ -1,0 +1,69 @@
+package texasHoldem;
+
+import java.util.ArrayList;
+import java.util.Random;
+
+public class Game {
+	int[] cards = new int[52];
+	// Goes from Spade, Heart, Club, and Diamond
+	ArrayList<Integer> cardsSequence = new ArrayList<Integer>();
+	// mod #Players to get player identity
+	// 0 is player, the rest is CPU
+	// then flop, river, and turn
+	int index = 0;
+	int numPlayers = 3;
+
+	public Game() {
+		for (int loopCards1 = 0; loopCards1 < cards.length - 1; loopCards1++) {
+			cards[loopCards1] = loopCards1;
+		}
+		index = cards.length - 1;
+		shuffleDeck();
+		dealCards();
+	}
+
+	public void shuffleDeck() {
+		Random rnd = new Random();
+		for (int loopCards2 = cards.length - 1; loopCards2 > 0; loopCards2--) {
+			int indexCard = rnd.nextInt(loopCards2 + 1);
+			int tempCard = cards[indexCard];
+			cards[indexCard] = cards[loopCards2];
+			cards[loopCards2] = tempCard;
+		}
+	}
+
+	public void dealCards() {
+		for (int loopCards3 = 0; loopCards3 < numPlayers * 2; loopCards3++) {
+			cardsSequence.add(cards[index]);
+			pop();
+		}
+	}
+
+	public void flopCards() {
+		for (int loopCards4 = 0; loopCards4 < 3; loopCards4++) {
+			cardsSequence.add(cards[index]);
+			pop();
+		}
+	}
+
+	public void riverCards() {
+		cardsSequence.add(cards[index]);
+		pop();
+	}
+
+	public void turnCards() {
+		cardsSequence.add(cards[index]);
+		pop();
+	}
+	public String translateCards(int indexTrans){
+		String suit;
+		switch((int()(cards[indexTrans]%13)){
+		case 0:
+			suit = "Spades";
+		}
+	}
+
+	public void pop() {
+		index--;
+	}
+}
